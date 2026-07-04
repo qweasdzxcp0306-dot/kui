@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UOS 行前问题速查</title>
+    <meta name="description" content="桑德兰大学行前问题速查工具，支持查询 CAS、签证、肺结核体检、eVisa、入境文件、行李准备、银行卡、电话卡、交通、学习系统、学生卡和防诈骗问题。" />
+    <meta name="keywords" content="桑德兰大学,UOS,University of Sunderland,行前说明会,CAS,英国签证,肺结核体检,eVisa,Sharecode,英国入境,留学行李,学生卡,防诈骗" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#003D7C" />
+    <meta property="og:title" content="UOS 行前问题速查" />
+    <meta property="og:description" content="输入关键词，快速查询桑德兰大学行前签证、入境、行李、学习生活与安全问题。" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <style>
+      :root {
+        --uos-blue: #003d7c;
+        --ink: #12223d;
+        --muted: #60708a;
+        --line: rgba(255, 255, 255, 0.78);
+        --glass: rgba(255, 255, 255, 0.74);
+        --shadow: 0 22px 70px rgba(30, 64, 175, 0.13);
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+        color: var(--ink);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+        background:
+          linear-gradient(rgba(255,255,255,.68) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px),
+          linear-gradient(135deg, #eef6ff 0%, #f8fbff 42%, #f5f0ff 100%);
+        background-size: 44px 44px, 44px 44px, auto;
+      }
+      button, input { font: inherit; }
+      button { cursor: pointer; }
+      a { color: inherit; }
+      mark {
+        border-radius: 8px;
+        background: rgba(191, 219, 254, .68);
+        color: inherit;
+        padding: 1px 4px;
+      }
+
+      .header {
+        max-width: 1152px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; }
+      .brand-icon {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.76);
+        box-shadow: 0 18px 45px rgba(15,23,42,.08);
+      }
+      .pill {
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.64);
+        border-radius: 999px;
+        padding: 8px 12px;
+        color: #5c6d82;
+        font-size: 12px;
+        font-weight: 700;
+        backdrop-filter: blur(14px);
+      }
+
+      .hero {
+        min-height: 455px;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 54px 20px 42px;
+        text-align: center;
+        position: relative;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 18px 12%;
+        z-index: -1;
+        border-radius: 48px;
+        background: linear-gradient(180deg, rgba(255,255,255,.76), rgba(255,255,255,.16));
+        filter: blur(18px);
+      }
+      .eyebrow {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.62);
+        border-radius: 999px;
+        padding: 8px 15px;
+        color: var(--uos-blue);
+        font-size: 12px;
+        font-weight: 800;
+        backdrop-filter: blur(14px);
+      }
+      h1 {
+        margin: 24px auto 0;
+        max-width: 900px;
+        font-size: clamp(38px, 8vw, 68px);
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+      .subtitle {
+        max-width: 680px;
+        margin: 20px auto 0;
+        color: var(--muted);
+        font-size: clamp(16px, 2.2vw, 19px);
+        line-height: 1.8;
+      }
+
+      .search-form {
+        max-width: 780px;
+        margin: 34px auto 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.82);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+        transition: transform .24s ease, box-shadow .24s ease;
+      }
+      .search-form:focus-within {
+        transform: translateY(-2px);
+        box-shadow: 0 30px 92px rgba(37, 99, 235, .16);
+      }
+      .search-icon {
+        width: 54px;
+        height: 54px;
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        border-radius: 20px;
+        background: #f7f9fc;
+        color: #64748b;
+      }
+      .search-input {
+        min-width: 0;
+        flex: 1;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: var(--ink);
+        font-size: 18px;
+        font-weight: 650;
+      }
+      .search-input::placeholder { color: #9aa7b8; }
+      .search-button {
+        height: 50px;
+        border: 0;
+        border-radius: 20px;
+        padding: 0 22px;
+        color: white;
+        font-weight: 800;
+        background: linear-gradient(90deg, var(--uos-blue), #0c83c8);
+        box-shadow: 0 12px 30px rgba(0, 61, 124, .24);
+        transition: transform .2s ease, filter .2s ease;
+      }
+      .search-button:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+      .tags {
+        max-width: 800px;
+        margin: 20px auto 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+      .tag, .category {
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.66);
+        border-radius: 999px;
+        padding: 9px 14px;
+        color: #5d6d81;
+        font-size: 14px;
+        font-weight: 700;
+        transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
+        backdrop-filter: blur(14px);
+      }
+      .tag:hover, .category:hover {
+        transform: translateY(-2px);
+        background: white;
+        color: var(--uos-blue);
+        box-shadow: 0 18px 45px rgba(15,23,42,.08);
+      }
+
+      .category-wrap {
+        max-width: 1040px;
+        margin: 24px auto 0;
+        padding: 0 20px 10px;
+        overflow-x: auto;
+      }
+      .categories { min-width: max-content; display: flex; justify-content: center; gap: 8px; }
+      .category.active {
+        background: var(--uos-blue);
+        border-color: var(--uos-blue);
+        color: white;
+        box-shadow: 0 12px 28px rgba(0, 61, 124, .18);
+      }
+
+      .main {
+        max-width: 1040px;
+        margin: 30px auto 0;
+        padding: 0 20px 70px;
+      }
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+      .section-kicker {
+        margin: 0;
+        color: #94a3b8;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .section-title { margin: 4px 0 0; font-size: 27px; }
+      .count {
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.66);
+        border-radius: 999px;
+        padding: 8px 13px;
+        color: #64748b;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .results { display: grid; gap: 18px; }
+      .card {
+        border: 1px solid var(--line);
+        background: var(--glass);
+        border-radius: 22px;
+        padding: 22px;
+        box-shadow: 0 18px 45px rgba(15,23,42,.08);
+        backdrop-filter: blur(18px);
+        animation: rise .32s ease both;
+        transition: transform .22s ease, box-shadow .22s ease;
+      }
+      .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: flex-start;
+      }
+      .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 9px; }
+      .cat-chip {
+        border-radius: 999px;
+        background: #eaf2fb;
+        padding: 6px 11px;
+        color: var(--uos-blue);
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .source { color: #94a3b8; font-size: 12px; font-weight: 700; }
+      .card h3 { margin: 0; font-size: 22px; line-height: 1.35; }
+      .fav {
+        width: 42px;
+        height: 42px;
+        flex: 0 0 auto;
+        border-radius: 999px;
+        border: 1px solid #dbe4f0;
+        background: rgba(255,255,255,.72);
+        color: #94a3b8;
+        transition: all .2s ease;
+      }
+      .fav.active { border-color: #cfe2ff; background: #eef6ff; color: var(--uos-blue); }
+      .short {
+        margin: 16px 0 0;
+        border-radius: 18px;
+        background: rgba(248,250,252,.82);
+        padding: 13px 15px;
+        color: #475569;
+        line-height: 1.8;
+        font-size: 14px;
+      }
+      .details {
+        display: none;
+        margin-top: 14px;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .card.open .details { display: grid; animation: fadeIn .2s ease both; }
+      .detail {
+        border-radius: 18px;
+        border: 1px solid #dbe4f0;
+        background: rgba(248,250,252,.78);
+        padding: 15px;
+      }
+      .detail.steps { border-color: #cfe2ff; background: rgba(239,246,255,.82); }
+      .detail.warn { border-color: #fde6aa; background: rgba(255,251,235,.88); }
+      .detail-title { margin: 0 0 10px; font-size: 14px; font-weight: 850; }
+      .detail ol, .detail ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; color: #475569; line-height: 1.65; font-size: 14px; }
+      .detail.warn ul { color: #7c4b13; }
+      .link-list { display: grid; gap: 8px; padding-left: 0 !important; list-style: none; }
+      .link-list a {
+        display: block;
+        overflow-wrap: anywhere;
+        border-radius: 12px;
+        background: rgba(248,250,252,.9);
+        padding: 9px 11px;
+        color: var(--uos-blue);
+        text-decoration: none;
+      }
+      .actions {
+        margin-top: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .text-button {
+        border: 0;
+        background: transparent;
+        color: var(--uos-blue);
+        font-weight: 800;
+        padding: 8px 0;
+      }
+      .copy {
+        border: 1px solid #dbe4f0;
+        background: rgba(255,255,255,.8);
+        border-radius: 999px;
+        padding: 10px 15px;
+        color: #475569;
+        font-weight: 800;
+        transition: all .2s ease;
+      }
+      .copy:hover { transform: translateY(-2px); color: var(--uos-blue); border-color: #cfe2ff; }
+
+      .empty {
+        min-height: 220px;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.66);
+        border-radius: 24px;
+        box-shadow: 0 18px 45px rgba(15,23,42,.08);
+        padding: 42px 20px;
+      }
+      .empty h3 { margin: 0; font-size: 20px; }
+      .empty p { max-width: 620px; margin: 10px auto 0; color: #64748b; line-height: 1.7; }
+
+      .favorites { margin-top: 46px; }
+      .favorite-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 13px;
+      }
+      .favorite-card {
+        text-align: left;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.66);
+        border-radius: 20px;
+        padding: 16px;
+        box-shadow: 0 10px 26px rgba(15,23,42,.06);
+        transition: all .2s ease;
+      }
+      .favorite-card:hover { transform: translateY(-2px); background: white; box-shadow: 0 18px 45px rgba(15,23,42,.08); }
+      .favorite-card h3 { margin: 12px 0 0; font-size: 16px; }
+      .favorite-card p { margin: 8px 0 0; color: #64748b; line-height: 1.6; font-size: 14px; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translate(-50%, 12px);
+        opacity: 0;
+        z-index: 20;
+        border: 1px solid rgba(255,255,255,.25);
+        border-radius: 999px;
+        background: var(--ink);
+        color: white;
+        box-shadow: 0 20px 60px rgba(15,23,42,.24);
+        padding: 13px 17px;
+        font-size: 14px;
+        font-weight: 750;
+        pointer-events: none;
+        transition: all .24s ease;
+      }
+      .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-4px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 720px) {
+        .header { padding: 18px 16px; }
+        .brand span { font-size: 14px; }
+        .pill { font-size: 11px; padding: 7px 10px; }
+        .hero { min-height: 430px; padding: 42px 16px 34px; }
+        .search-form { border-radius: 24px; padding: 7px; }
+        .search-icon { width: 46px; height: 46px; border-radius: 17px; }
+        .search-input { font-size: 15px; }
+        .search-button { height: 46px; padding: 0 14px; }
+        .section-head { align-items: flex-start; }
+        .card { padding: 18px; }
+        .card h3 { font-size: 20px; }
+        .favorite-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">⌘</div>
+        <span>UOS Guide Search</span>
+      </div>
+      <span class="pill">Local Knowledge Base</span>
+    </header>
+
+    <section class="hero">
+      <span class="eyebrow">University of Sunderland Pre-arrival Guide</span>
+      <h1>UOS 行前问题速查</h1>
+      <p class="subtitle">输入关键词，快速查询签证、入境、行李、学习生活与安全问题。</p>
+
+      <form class="search-form" id="searchForm">
+        <div class="search-icon" aria-hidden="true">⌕</div>
+        <input class="search-input" id="searchInput" placeholder="搜索 CAS、签证、肺结核、学生卡、被骗了..." autocomplete="off" />
+        <button class="search-button" type="submit">搜索</button>
+      </form>
+      <div class="tags" id="tags"></div>
+    </section>
+
+    <nav class="category-wrap" aria-label="分类筛选">
+      <div class="categories" id="categories"></div>
+    </nav>
+
+    <main class="main">
+      <section>
+        <div class="section-head">
+          <div>
+            <p class="section-kicker" id="resultKicker">Curated from PDF</p>
+            <h2 class="section-title" id="resultTitle">推荐问题</h2>
+          </div>
+          <span class="count" id="resultCount">0 条</span>
+        </div>
+        <div class="results" id="results"></div>
+      </section>
+
+      <section class="favorites" id="favoriteSection">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Favorites</p>
+            <h2 class="section-title">常用收藏</h2>
+          </div>
+          <span class="count" id="favoriteCount">0 条</span>
+        </div>
+        <div id="favoritePanel"></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      const knowledge = [{"id":"cas-application","title":"CAS申请","category":"出发前准备","keywords":["CAS","offer","预录取","无条件offer","入读确认函","学术材料","语言成绩","护照","CAS怎么办"],"questionExamples":["CAS怎么办？","CAS需要什么材料？","拿到offer后下一步是什么？","学校什么时候给CAS？"],"shortAnswer":"收到桑德兰大学预录取 offer 后，并且学术或语言班资料齐全后，学校会为学生申请 CAS，也就是入读确认函/无条件 offer。","steps":["确认自己已经收到桑德兰大学预录取 offer。","补齐学术材料和语言成绩等资料。","等待学校为你申请 CAS。","拿到 CAS 后尽快准备签证申请和肺结核体检。"],"materials":["护照","语言成绩","相关学术补充材料"],"warnings":["CAS 是后续办理学生签证的重要材料。","资料不齐会影响 CAS 申请进度。"],"sourcePages":"PDF 第 6 页"},{"id":"student-visa","title":"签证申请","category":"签证与入境","keywords":["签证","学生签证","Student Visa","CAS","肺结核","预约签证","加急","出签","签证材料"],"questionExamples":["签证怎么申请？","拿到CAS后要做什么？","英国学生签证要多久？","签证可以加急吗？"],"shortAnswer":"拿到 CAS 后应尽快预约签证申请和肺结核体检。普通审理时间约为 3 周，也可以选择 3 日或 24 小时加急服务。","steps":["拿到 CAS。","尽快预约签证申请。","尽快预约肺结核体检。","准备签证相关材料。","按预约时间递交签证。"],"materials":["CAS","护照","肺结核检测证明","语言成绩","学术材料"],"warnings":["签证审理需要时间，不要拖到临近开学才办理。","是否选择加急要结合自己的入学时间和机票安排。"],"sourcePages":"PDF 第 6 页"},{"id":"tb-test","title":"肺结核体检","category":"签证与入境","keywords":["肺结核","体检","TB","英国内政部","指定中心","白底照片","Student Visa","SR1 3SD","体检材料"],"questionExamples":["肺结核体检带什么？","肺结核体检多少钱？","肺结核体检地址怎么填？","签证体检需要什么材料？"],"shortAnswer":"肺结核体检需要提前预约英国内政部指定中心，建议上午去，方便当天拿到报告。需要携带护照、身份证、照片、Offer 或 CAS 等材料。","steps":["咨询英国内政部指定体检中心。","提前预约体检时间。","建议上午前往体检。","携带所需材料。","体检后领取报告。"],"materials":["护照原件及首页复印件","身份证，且有效期建议 6 个月以上","护照规格白底照片两张，尺寸 3.5cm x 4.5cm","学校 Offer 或 CAS","体检费用，约 550 元至 880 元，具体以医院为准"],"warnings":["签证类型填写 Student Visa 学生签证。","在英地址填写 University of Sunderland, Chester Road, Sunderland。","邮编填写 SR1 3SD。"],"sourcePages":"PDF 第 7 页"},{"id":"visa-online-appointment","title":"签证线上预约流程","category":"签证与入境","keywords":["签证预约","线上预约","IHS","签证费","预约确认单","材料清单","gov.uk","在线申请"],"questionExamples":["签证线上预约怎么做？","IHS是什么时候交？","签证费什么时候交？","签证预约后要打印什么？"],"shortAnswer":"签证线上预约主要包括填写申请表、缴纳 IHS 医疗附加费、预约递签时间、缴纳签证费和打印确认材料。","steps":["在线填写学生签证申请表。","缴纳 IHS 医疗附加费。","预约签证递交时间。","预约前上传肺结核证明、语言成绩、成绩单等材料。","缴纳签证费。","打印预约确认单、材料清单等确认材料。"],"materials":["肺结核证明","语言成绩","成绩单","预约确认单","材料清单"],"warnings":["递签时需要带打印好的确认材料。"],"links":["https://www.gov.uk/student-visa/apply"],"sourcePages":"PDF 第 8 页"},{"id":"visa-submission","title":"递签材料","category":"签证与入境","keywords":["递签","签证中心","证件照","护照","无条件Offer","CAS","存款证明","预约单","出签"],"questionExamples":["递签要带什么？","去签证中心要提前多久？","出签要多久？","签证材料有哪些？"],"shortAnswer":"递签需要前往最近的签证中心，建议提前 30 分钟抵达。普通出签大约 15 个工作日，也可以购买加急服务。","steps":["前往离你最近的签证中心。","提前于预约时间 30 分钟抵达。","按要求递交材料。","等待出签。","如有需要，可以购买加急服务，并选择邮寄或自取。"],"materials":["证件照","护照","无条件 Offer 和 CAS","语言成绩单","毕业证","学位证","成绩单","存款证明","肺结核检测报告","签证申请表","预约单","费用支付确认函"],"warnings":["材料清单仅作为参考，最终请与签证老师确认。"],"sourcePages":"PDF 第 9 页"},{"id":"evisa-sharecode","title":"eVisa / Sharecode","category":"签证与入境","keywords":["eVisa","Sharecode","Share code","BRP","电子签证","英国签证","移民局","身份证明"],"questionExamples":["eVisa是什么？","Sharecode在哪里申请？","BRP还有吗？","入境前要申请eVisa吗？"],"shortAnswer":"eVisa 是英国签证与移民局推出的电子签证系统，作为在英期间的身份证明，记录签证与移民信息，已取代 BRP 卡和护照上的签证贴纸。","steps":["进入英国官方 eVisa 网站。","按要求申请或获取 eVisa 访问权限。","入境英国前提前申请 eVisa。","获取有效期内的 Sharecode。"],"links":["https://www.gov.uk/get-access-evisa"],"warnings":["入境英国前务必提前申请 eVisa。","需要确保 Sharecode 在有效期内。"],"sourcePages":"PDF 第 10 页"},{"id":"tuition-payment","title":"学费支付","category":"出发前准备","keywords":["学费","留位费","押金","3500英镑","分期付款","CAS","开学前","缴费"],"questionExamples":["学费怎么交？","留位费是多少？","第二笔学费什么时候交？","可以分期付款吗？"],"shortAnswer":"第一笔学费是 3500 英镑留位费，建议尽早支付。第二笔学费是剩余学费，以 CAS 所示为准，建议开学前提前支付。","steps":["尽早支付第一笔 3500 英镑留位费。","查看 CAS 上显示的剩余学费金额。","开学前提前支付剩余学费。","如果需要分期付款，咨询桑德兰中国办老师。"],"materials":["CAS","学费支付信息","汇款或支付凭证"],"warnings":["剩余学费以 CAS 显示为准。","分期付款需要咨询桑德兰中国办老师。"],"sourcePages":"PDF 第 11 页"},{"id":"student-registration","title":"新生注册","category":"学习系统","keywords":["新生注册","eVision","邮箱","Canvas","Microsoft Teams","Teams","学生系统","线上注册"],"questionExamples":["新生注册要做什么？","入学前要注册哪些系统？","eVision是什么？","Canvas怎么用？"],"shortAnswer":"入学前每位新生都需要注册学校的各类线上系统，例如 eVision、电子邮箱、Canvas 和 Microsoft Teams。","steps":["注册 eVision。","激活或查看学生电子邮箱。","注册或登录 Canvas。","下载并登录 Microsoft Teams。","按学校教程完成线上系统设置。"],"links":["https://mp.weixin.qq.com/s/cpdb2qPdDxlMH95ujMEPeA"],"warnings":["入学前尽早完成线上注册，避免影响后续学生卡、课程和系统使用。"],"sourcePages":"PDF 第 12 页"},{"id":"luggage-documents","title":"行李证件类红榜","category":"行李准备","keywords":["行李","证件","护照","肺结核","信用卡","Offer","CAS","住宿证明","语言成绩","银联卡","入境文件"],"questionExamples":["出国证件要带什么？","行李里重要文件有哪些？","入境文件要放哪里？","Offer和CAS要打印吗？"],"shortAnswer":"证件类材料建议随身携带并准备打印件，包括护照、肺结核体检证明、国际信用卡、白底证件照、Offer 和 CAS 打印件、住宿证明、语言成绩单、国内银联卡等。","materials":["护照及复印件","肺结核体检证明","国际信用卡，例如 VISA 或 Master Card","白底证件照片","学校正式 Offer 和 CAS 打印件","住宿预定证明文件打印件","语言成绩单","国内银联卡"],"warnings":["重要证件不要放托运行李，建议随身携带。","重要文件建议准备电子版和纸质版。"],"sourcePages":"PDF 第 14 页"},{"id":"medicine-list","title":"药品类准备","category":"行李准备","keywords":["药品","感冒药","眼药水","体温计","消炎药","过敏药","皮肤药","止痛药","胃药","处方药","牙齿"],"questionExamples":["出国药品带什么？","处方药可以带吗？","英国能买到感冒药吗？","出国前要看牙吗？"],"shortAnswer":"可以按需携带常用药，例如感冒药、眼药水、体温计、过敏药、皮肤药、止痛药、胃药、碘伏棉签等。处方药需要附医生提供的药品说明。","materials":["一次性医用口罩","创口贴或云南白药","感冒冲剂","眼药水","电子体温计","消炎类药物","换季过敏药","皮肤药","止痛类药物","鼻炎类药物","胃药或肠胃药","碘伏棉签","酒精棉签","蚊虫叮咬类药物"],"warnings":["处方药需要附医生提供的药品说明。","英国常见西药和速效药比较容易买到。","英国看牙费用昂贵，建议出国前做好牙齿检查和治疗。"],"sourcePages":"PDF 第 15 页"},{"id":"electronics-stationery","title":"电子电器和文具","category":"行李准备","keywords":["电子产品","文具","电脑","iPad","U盘","录音笔","充电宝","转换插头","插线板","电话卡"],"questionExamples":["出国电子产品带什么？","英国学习需要电脑吗？","要带转换插头吗？","文具要带什么？"],"shortAnswer":"英国学习基本电子化，以电脑和 iPad 为主。建议准备电脑、充电宝、充电线、中英或国际转换插头、中国插线板、U盘、笔记本等。","materials":["笔","笔记本","便签纸","U盘","录音笔","充电宝","充电线","中英或国际转换插头","电脑以及相关产品","中国插线板","电话卡"],"warnings":["小型电饭煲英国可以买到，但相对贵且功能少。","电子产品按需携带，不要过度携带。"],"sourcePages":"PDF 第 16 页"},{"id":"clothes-skincare","title":"服饰护肤","category":"行李准备","keywords":["衣服","护肤","化妆品","面膜","羽绒服","防风衣","保暖内衣","鞋子","帽子","压缩袋"],"questionExamples":["衣服要带多少？","英国要带羽绒服吗？","护肤品要带吗？","化妆品要准备什么？"],"shortAnswer":"夏天和冬天衣服都可以带一些，但不用太多，可以用压缩袋收纳。护肤品和化妆品按个人需求携带。","materials":["发箍、发饰、皮筋、发夹","美瞳或隐形眼镜","化妆品或卸妆膏","痘痘贴","洗面奶","面膜","包包和鞋子","帽子","围巾","冬夏睡衣","保暖内衣裤","内衣裤、打底裤、袜子","羽绒服","防风衣"],"warnings":["衣服不用带太多。","可以用压缩袋节省行李空间。"],"sourcePages":"PDF 第 17 页"},{"id":"banned-items","title":"禁止携带黑榜","category":"行李准备","keywords":["禁止携带","不能带什么","黑榜","肉类","奶制品","植物种子","蜂蜜","水果","土壤","毒品","武器","文物","不能入境"],"questionExamples":["去英国不能带什么？","肉类可以带吗？","奶制品能带吗？","什么东西不能入境？"],"shortAnswer":"部分食品、动植物制品、危险品、武器、违法物品和文物等禁止携带或需要特别注意。","materials":["新鲜、脱水或罐装的肉类","肉制品和奶类制品","植物种子、蔬菜、蜂蜜、水果、土壤","昆虫以及其他对植物有害的虫类","鱼类以及鱼籽","野生动物及标本","毒品及危险药品","伪造和非法翻印的破坏专利的物品","彩票或奖券","军火弹药、轻型武器、爆炸物和弹药","进攻性武器，例如弹簧刀、指节铜套等","有淫秽和威胁内容的物品","珍贵文物及其他禁止出境文物","伪造货币或有价证券"],"warnings":["不确定是否能带的物品，宁可不带或提前查询官方规定。"],"sourcePages":"PDF 第 18 页"},{"id":"flight-choice","title":"机票和航班选择","category":"住宿交通","keywords":["机票","航班","纽卡斯尔机场","转机","联程机票","过境签证","免费接机","Uber","落地时间"],"questionExamples":["什么时候买机票？","去桑德兰飞到哪里？","航班怎么选？","需要注意过境签吗？"],"shortAnswer":"正常情况下，拿到 offer 并确定开学时间后可以开始关注机票，建议获得签证后再购买。去桑德兰校区通常需要中转到纽卡斯尔机场。","steps":["拿到 offer 并确认开学时间后开始关注机票。","建议获得签证后购买机票。","优先考虑一次转机。","注意是否为联程机票。","注意是否需要过境签证。","尽量选择 9:00 至 17:00 之间落地。"],"materials":["护照","签证或 eVisa","机票订单","学校地址"],"warnings":["前往桑德兰校区通常需要中转到达目的地。","落地后可根据情况选择官方接机、地铁、Uber 或华人司机接机服务。"],"sourcePages":"PDF 第 21-23 页"},{"id":"entry-documents","title":"入境文件准备","category":"签证与入境","keywords":["入境","海关","文件","护照","eVisa","UF","CAS","学费收据","资金证明","住宿合同","肺结核","入境材料"],"questionExamples":["入境英国要带什么文件？","海关可能要看什么？","住宿合同要带吗？","肺结核证明入境要带吗？"],"shortAnswer":"入境时请将重要文件及复印件随身携带，方便出入境时取出，并在必要时出示给海关官员。","materials":["有效护照和签证或 eVisa","学校录取通知书","学校录取确认函 UF 和 CAS","已预交学费的收据或汇款证明","资金证明","雅思或其他语言考试成绩单","住宿合同，包括详细地址、邮编和电话","住宿费缴费凭证","学历证书、学位证书、成绩单、语言成绩单、资格证书","肺结核检测证明报告","护照规格照片","一寸和两寸白底照片","英国学校地址和必要联系电话"],"warnings":["肺结核检测证明有效期为 6 个月，入境时需要在有效期内。","重要文件建议随身携带，不要放入托运行李。"],"sourcePages":"PDF 第 25-26 页"},{"id":"university-address","title":"学校地址和电话","category":"签证与入境","keywords":["学校地址","电话","City Campus","Chester Road","SR1 3SD","London Campus","河边校区","体检地址"],"questionExamples":["桑德兰大学地址怎么填？","学校电话是多少？","入境时学校地址写什么？"],"shortAnswer":"入境和体检材料中可能需要填写学校地址和联系电话。不同校区地址不同，常用城市校区地址是 City Campus, Chester Road, Sunderland, SR1 3SD。","materials":["城市校区：The University of Sunderland, Edinburgh Building, City Campus, Chester Road, Sunderland, SR1 3SD","城市校区电话：+44 (0)191 515 2000","河边校区：The Gateway Prospect Building, Sir Tom Cowie Campus, St Peter's Way, Sunderland, SR6 0DD","河边校区电话：0191 515 2222","伦敦校区：University of Sunderland in London, 197 Marsh Wall, London, E14 9SG","伦敦校区电话：+44 (0)20 7531 7333"],"warnings":["填写地址时注意区分自己的校区。"],"sourcePages":"PDF 第 27 页"},{"id":"entry-process","title":"入境流程","category":"签证与入境","keywords":["入境流程","Arrival","Immigration Control","UK Border Control","指纹","行李","Baggage Claim","机场"],"questionExamples":["英国入境流程是什么？","入境后先去哪？","在机场怎么取行李？"],"shortAnswer":"入境流程一般包括填写入境申报表、前往入境通道、身份核实、海关问询和录指纹、取回行李并通过海关。","steps":["填写入境申报表。","跟随 Arrival 标志前往 Immigration Control 或 UK Border Control。","将护照交给工作人员进行身份核实。","按要求提供准备好的入境材料。","进行海关问询和录指纹。","前往 Baggage Claim 领取托运行李。","根据航班号码找到对应传送带。"],"warnings":["建议随身带黑色签字笔、机票、护照和学校材料。","如果没把握一次填对，可以先在纸上写好主要内容再填写。"],"sourcePages":"PDF 第 28-31 页"},{"id":"border-questions","title":"入境海关问答","category":"签证与入境","keywords":["海关问答","入境问题","英文问题","purpose","major","tuition","university","say that again","海关问我问题"],"questionExamples":["海关会问什么？","入境英语问题怎么回答？","海关没听懂怎么办？","入境英国会被问哪些问题？"],"shortAnswer":"海关问询不用紧张。如果没听懂，可以说：I'm sorry, can you please say that again?","steps":["保持冷静。","如实回答问题。","没听懂时礼貌请求重复。","准备好学校、住宿、专业、学费来源等基本信息。"],"materials":["What's the purpose of your visit to the UK?","Do you have a place to stay in England?","Which university do you study in?","Who pays for your tuition?","What’s your major?","How long are you staying in England?"],"warnings":["回答要简洁真实。","不要乱编信息。"],"sourcePages":"PDF 第 30 页"},{"id":"customs-declaration","title":"海关通道和申报","category":"签证与入境","keywords":["海关","绿色通道","红色通道","蓝色通道","申报","现金","限制入境","免税","大额现金"],"questionExamples":["入境走哪个通道？","没有东西申报走哪里？","什么东西需要申报？","大额现金要申报吗？"],"shortAnswer":"如果没有需要申报的物品，一般直接走绿色通道。有物品需要申报则走红色通道。","steps":["完成身份核实后领取行李。","判断是否有需要申报的物品。","没有需要申报物品时走绿色通道。","有需要申报物品时走红色通道。"],"materials":["大额度英镑现金或等值货币","所有限制入境英国的物品","烟酒类","宠物","婴儿奶粉","部分食物","计划在英国销售的物品","超过免税限量或限额的自用物品"],"warnings":["绿色通道适用于来自非欧盟国家且无物品需要申报的情况。","红色通道适用于有物品需要申报的情况。"],"sourcePages":"PDF 第 31-32 页"},{"id":"bank-card-cash","title":"银行卡和现金","category":"银行卡电话卡","keywords":["银行卡","现金","英镑","Visa","Master","中国银行卓隽卡","HSBC","汇丰","Starling","Monzo","Apple Pay"],"questionExamples":["英国银行卡怎么选？","出国前要带多少现金？","国内银行卡要办什么？","Monzo是什么？"],"shortAnswer":"出境前建议准备国内银行卡和少量英镑现金，刚到英国过渡使用。英国本地银行卡可考虑小马卡、汇丰、Starling 或 Monzo。","materials":["中国银行卓隽卡，英镑卡","国内银行 Visa 或 Master 卡","小马卡或汇丰银行等英国实体银行","Starling 卡或 Monzo 卡","建议随身携带 1000 至 2000 英镑现金"],"warnings":["国内银行卡适合刚到英国过渡使用。","英国银行开户约半个月，银行卡通常在开户后 2 至 4 周内寄到。","有些地方可能 Cash only。"],"sourcePages":"PDF 第 35 页"},{"id":"phone-card","title":"电话卡","category":"银行卡电话卡","keywords":["电话卡","O2","Lebara","EE","CMlink","Pay as you go","SIM Only","Monthly Contract"],"questionExamples":["英国电话卡怎么选？","O2怎么样？","Lebara便宜吗？","SIM Only是什么意思？"],"shortAnswer":"英国电话卡可以根据价格、信号、漫游和合同灵活度选择。O2 实体店多，EE 信号强但价格贵，Lebara 便宜但信号可能不稳定，CMlink 是中国移动相关服务。","materials":["O2：信号好，实体店多，全球漫游覆盖广","Lebara：价格便宜优惠多，但信号可能不稳定，支持欧洲漫游","EE：信号强，价格较贵，全球漫游覆盖国家多","CMlink：中国移动相关，信号好，但可能有骚扰电话","Pay as you go：即充即用，灵活方便","SIM Only：只买卡，可选 30 天或 12 个月合同","Monthly Contract：手机加话费流量合约"],"warnings":["合同类套餐要注意合约期限和取消规则。"],"sourcePages":"PDF 第 36 页"},{"id":"transportation","title":"交通方式","category":"住宿交通","keywords":["交通","Pop Card","地铁","Metro","Bus","Taxi","Railcard","Trainline","火车","公交","700","701"],"questionExamples":["桑德兰交通怎么坐？","Pop Card是什么？","火车怎么买票？","学校公交免费吗？"],"shortAnswer":"桑德兰和纽卡斯尔之间地铁网络较发达，可以使用 Pop Card。火车可通过 Trainline 购票，16-25 Railcard 有折扣。学校 700/701 路公交出示学生卡免费。","materials":["Pop Card：纽卡斯尔地铁交通卡，可乘坐地铁和公交，卡片免费，需预存 £5","Trainline：www.thetrainline.co.uk","Railcard：16-25 岁青年折扣，约 6.7 折","Metro：纽卡斯尔至桑德兰地铁网络","Bus：学校提供 700/701 路公交，出示学生卡免费","Taxi","长途大巴"],"links":["www.thetrainline.co.uk","nexus.org.uk"],"warnings":["乘坐 Metro 需要主动刷卡购票，避免罚款。"],"sourcePages":"PDF 第 37 页"},{"id":"food-shopping","title":"吃饭购物","category":"住宿交通","keywords":["吃饭","食堂","做饭","餐馆","快餐","Amazon","UNiDAYS","eBay","Temu","Shein","中超","中国城","Bridges","Eldon Square"],"questionExamples":["桑德兰吃饭贵吗？","可以自己做饭吗？","英国购物平台有哪些？","中超能买到什么？"],"shortAnswer":"吃饭可以选择学校食堂、自己做饭、餐馆或快餐。购物可以使用 Amazon、UNiDAYS、eBay、Temu、Shein，也可以去中国超市、Bridges 或 Eldon Square。","materials":["学校食堂：供应三餐，价格相对便宜","自己做饭：丰俭由人，注意油烟警报和通风","餐馆：人均约 10 至 20 镑","快餐简餐：人均约 10 镑","Amazon：家居电子","UNiDAYS：学生折扣","eBay：私人商户","Temu：国外拼多多","Shein：平价服装","中国超市：调料、酱菜、冷冻食品、新鲜蔬果肉类、进口零食","Bridges：桑德兰市中心商场","Eldon Square：纽卡斯尔市中心商场"],"warnings":["自己做饭注意油烟报警器，开窗通风。","中国超市价格普遍比国内贵。","部分中超 10 镑以下可能只收现金。"],"sourcePages":"PDF 第 38-41 页"},{"id":"study-websites","title":"学习网站","category":"学习系统","keywords":["学习网站","Canvas","Teams","Evision","Outlook","作业","查分数","课程资料","邮箱"],"questionExamples":["Canvas是干什么的？","Teams要下载吗？","eVision有什么用？","学生邮箱在哪里？"],"shortAnswer":"Canvas 用于交作业、查分数和查看课程资料；Microsoft Teams 用于线上课、研讨会和小组作业；eVision 用于注册、查看学费和成绩单；Outlook 是学生邮箱。","materials":["Canvas：交作业、查分数、下载和查看课程资料","Microsoft Teams：线上课、研讨会、小组作业群聊，建议下载 APP","eVision：线上学生注册、查看学费和成绩单","Outlook：学生邮箱，用于和教授及学校收发邮件"],"links":["https://canvas.sunderland.ac.uk/","https://evision.sunderland.ac.uk/urd/sits.urd/run/siw_lgn"],"warnings":["入学前建议熟悉这些系统，避免影响课程和作业。"],"sourcePages":"PDF 第 43 页"},{"id":"study-tips","title":"学习建议","category":"学习系统","keywords":["学习建议","预习","复习","英语能力","图书馆","在线资源","课堂讨论","时间管理","求助"],"questionExamples":["在英国怎么学习？","学习上有什么建议？","英语不好怎么办？","遇到学业困难怎么办？"],"shortAnswer":"学习上建议提前预习和复习，提高英语能力，善用图书馆和在线资源，积极参与课堂讨论和课外活动，做好时间管理，并在遇到困难时主动寻求帮助。","steps":["提前预习和复习。","持续提高英语能力。","善用图书馆和在线资源。","积极参与课堂讨论和课外活动。","管理好时间。","遇到困难及时寻求帮助。"],"sourcePages":"PDF 第 43 页"},{"id":"academic-services","title":"学校学习服务","category":"校园服务","keywords":["学习服务","EAP","EBS","免费语言课程","图书馆","电子图书馆","学术导师","就业服务","CitySpace"],"questionExamples":["学校有什么学习服务？","免费语言课程怎么报名？","图书馆能做什么？","学术导师能帮什么？"],"shortAnswer":"学校提供免费语言课程、图书馆、电子图书馆、个人学术导师、就业服务中心和 CitySpace 体育中心等服务。","materials":["免费语言课程：EAP 学术通用英语，EBS 商业英语","图书馆：借阅书籍、借笔记本电脑、预定自习室、打印机","电子图书馆：查阅文献、学习学术写作、论文格式、演讲技巧","个人学术导师：讨论学业困难、学术支持、未来方向","就业服务中心：优化简历、面试指导、创业支持、技能发展","CitySpace 体育中心：体育场、健身房、更衣室、攀岩墙、活动中心"],"links":["https://libraryguides.sunderland.ac.uk/eap-home/book-a-course","https://libraryguides.sunderland.ac.uk/home"],"sourcePages":"PDF 第 44-49 页"},{"id":"student-card","title":"学生卡","category":"校园服务","keywords":["学生卡","campus card","刷卡签到","TDS","出勤","补办","£10","Selfcare","Gateway","学生卡丢了","学生卡丢失"],"questionExamples":["学生卡怎么拿？","上课怎么签到？","学生卡丢了怎么办？","刷卡时间有限制吗？"],"shortAnswer":"新生注册建议尽早完成并上传学生卡照片。上课需要用学生卡签到，刷卡时间需在课表安排的上课时间前后 10 分钟内。学生卡丢失可在线支付 £10 购买替换卡。","steps":["新生注册时尽早上传学生卡照片。","等学校审核照片后制卡。","学生卡会邮寄到填写的地址，通常是学生公寓。","上课进入教室前，在门口刷卡机刷卡签到。","如学生卡丢失，可在在线商店支付 £10 购买替换卡。","等待补卡期间，建议在 TDS 上自己记录出勤。"],"links":["https://sunderlandlive.tdscloud.ie/studentportal/static/index.html","https://onlinestore.sunderland.ac.uk/product-catalogue/student-services/replacement-campus-card"],"warnings":["刷卡时间必须在课表安排的上课时间前后 10 分钟内，否则可能无法记录出勤。","购买替换卡前确认 e:Vision 中的联系地址是否更新。","正常磨损损坏可以带旧卡去 Gateway 咨询台免费更换。"],"sourcePages":"PDF 第 50 页"},{"id":"compass","title":"Compass","category":"校园服务","keywords":["Compass","UoS APP","学生咨询","问题合集","问题提交","免费公交","学生身份"],"questionExamples":["Compass是什么？","Compass有什么用？","学生咨询平台在哪里？","免费公交怎么证明学生身份？"],"shortAnswer":"Compass UoS APP 是为桑德兰学生咨询准备的线上平台，包含问题合集、问题提交和免费公交车出示学生身份等功能。","materials":["问题合集","问题提交","免费公交车出示学生身份"],"links":["https://mle.sunderland.ac.uk/compass-login/login.php"],"sourcePages":"PDF 第 51 页"},{"id":"anti-fraud","title":"防诈骗提醒","category":"安全防骗","keywords":["诈骗","防骗","假冒大使馆","警方","移民局","快递","清关费","高薪兼职","刷单","投资理财","租房诈骗","学费汇款"],"questionExamples":["英国留学有哪些诈骗？","怎么防诈骗？","快递清关短信可信吗？","高薪兼职靠谱吗？"],"shortAnswer":"留学期间要警惕假冒大使馆、警方、移民局来电，假冒政府或警察局邮件，快递清关费短信诈骗，高薪兼职诈骗，刷单投资理财诈骗，租房诈骗和学费汇款诈骗。","materials":["假冒大使馆、警方、移民局来电","假冒政府或警察局邮件","假冒快递或清关费短信诈骗","高薪工作或兼职诈骗","刷单或投资理财诈骗","租房诈骗","学费或汇款诈骗"],"warnings":["政府部门不会电话索要转账或银行信息。","收到罚款信要通过官方电话核实，不要拨打信上的电话或点击陌生网址。","警惕短信链接要求输入银行卡密码或验证码。","不轻信高薪兼职广告。","避免先付费或泄露过多个人信息。","租房和付款请走正规渠道。"],"sourcePages":"PDF 第 53 页"},{"id":"fraud-response","title":"被诈骗怎么办","category":"安全防骗","keywords":["被骗了","被诈骗了","诈骗处理","报警","999","101","Action Fraud","Gateway","银行冻结","领保","使领馆"],"questionExamples":["被诈骗了怎么办？","在英国被骗了找谁？","英国报警电话是多少？","Action Fraud是什么？"],"shortAnswer":"如果遇到诈骗，要先保留证据，然后报警，联系 Action Fraud 和学校 Gateway 求助，必要时联系中国驻英使领馆，并及时联系银行冻结账户和追回可疑交易。","steps":["保留证据，包括聊天记录、通话记录、转账截图、对方账户信息。","报警，英国紧急报警电话为 999，非紧急报警电话为 101。","联系英国国家反诈骗中心 Action Fraud。","联系学校 Gateway 求助，学校工作人员可以协助报警或提供建议。","联系中国驻英使领馆。","及时联系银行，申请冻结账户并追回可疑交易。"],"materials":["聊天记录","通话记录","转账截图","对方账户信息","银行交易记录"],"links":["https://www.actionfraud.police.uk"],"warnings":["不要删除聊天记录和转账记录。","尽快联系银行处理可疑交易。","中国驻曼彻斯特总领馆领保电话：+44-161-224-8986。"],"sourcePages":"PDF 第 54 页"}];
+      const categories = ["全部", "出发前准备", "签证与入境", "行李准备", "住宿交通", "银行卡电话卡", "学习系统", "校园服务", "安全防骗", "收藏"];
+      const tags = ["CAS申请", "签证", "肺结核", "eVisa", "学费", "注册", "行李", "入境", "银行卡", "电话卡", "交通", "学习网站", "学生卡", "防诈骗", "被骗了", "不能带什么"];
+      const recommendedIds = ["student-visa", "tb-test", "evisa-sharecode", "entry-documents", "bank-card-cash", "fraud-response"];
+      const favoriteKey = "uos-guide-search-favorites";
+
+      let query = "";
+      let activeCategory = "全部";
+      let favorites = readFavorites();
+
+      const input = document.getElementById("searchInput");
+      const results = document.getElementById("results");
+      const resultTitle = document.getElementById("resultTitle");
+      const resultKicker = document.getElementById("resultKicker");
+      const resultCount = document.getElementById("resultCount");
+      const favoritePanel = document.getElementById("favoritePanel");
+      const favoriteCount = document.getElementById("favoriteCount");
+      const favoriteSection = document.getElementById("favoriteSection");
+      const toast = document.getElementById("toast");
+
+      function readFavorites() {
+        try { return JSON.parse(localStorage.getItem(favoriteKey)) || []; }
+        catch { return []; }
+      }
+
+      function saveFavorites() {
+        localStorage.setItem(favoriteKey, JSON.stringify(favorites));
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;",
+        }[char]));
+      }
+
+      function escapeRegex(value) {
+        return value.replace(/[.*+?^\${}()|[\]\\]/g, "\\$&");
+      }
+
+      function highlight(value) {
+        const text = escapeHtml(value);
+        const trimmed = query.trim();
+        if (!trimmed) return text;
+        const terms = Array.from(new Set([trimmed, ...trimmed.split(/[\s,，、/]+/)].filter((term) => term.length >= 2)))
+          .sort((a, b) => b.length - a.length)
+          .map(escapeRegex);
+        if (!terms.length) return text;
+        return text.replace(new RegExp("(" + terms.join("|") + ")", "gi"), "<mark>$1</mark>");
+      }
+
+      function fieldText(item) {
+        return [
+          item.title,
+          item.category,
+          ...(item.keywords || []),
+          ...(item.questionExamples || []),
+          item.shortAnswer,
+          ...(item.steps || []),
+          ...(item.materials || []),
+          ...(item.warnings || []),
+          ...(item.links || []),
+        ].join(" ").toLowerCase();
+      }
+
+      function scoreItem(item, rawQuery) {
+        const q = rawQuery.trim().toLowerCase();
+        if (!q) return 0;
+        const fields = [
+          [item.title, 80],
+          [(item.keywords || []).join(" "), 65],
+          [(item.questionExamples || []).join(" "), 55],
+          [item.shortAnswer, 28],
+          [(item.steps || []).join(" "), 14],
+          [(item.materials || []).join(" "), 12],
+          [(item.warnings || []).join(" "), 12],
+          [(item.links || []).join(" "), 10],
+        ];
+        let score = 0;
+        for (const [value, weight] of fields) {
+          const text = String(value || "").toLowerCase();
+          if (text.includes(q)) score += weight;
+          for (const term of q.split(/[\s,，、/]+/).filter(Boolean)) {
+            if (term.length >= 2 && text.includes(term)) score += Math.max(8, weight / 3);
+          }
+        }
+        const all = fieldText(item);
+        let fuzzyHits = 0;
+        for (const char of q) {
+          if (char.trim() && all.includes(char)) fuzzyHits += 1;
+        }
+        score += fuzzyHits / Math.max(1, q.length) * 8;
+        return score;
+      }
+
+      function searchItems() {
+        const trimmed = query.trim();
+        let items = trimmed
+          ? knowledge.map((item) => ({ item, score: scoreItem(item, trimmed) })).filter((entry) => entry.score > 6).sort((a, b) => b.score - a.score).map((entry) => entry.item)
+          : knowledge;
+
+        if (!trimmed && activeCategory === "全部") {
+          items = recommendedIds.map((id) => knowledge.find((item) => item.id === id)).filter(Boolean);
+        }
+        if (activeCategory === "收藏") {
+          items = items.filter((item) => favorites.includes(item.id));
+        } else if (activeCategory !== "全部") {
+          items = items.filter((item) => item.category === activeCategory);
+        }
+        return items;
+      }
+
+      function formatAnswer(item) {
+        const numbered = (items) => items && items.length ? items.map((entry, index) => (index + 1) + ". " + entry).join("\n") : "无";
+        const bulleted = (items) => items && items.length ? items.map((entry) => "- " + entry).join("\n") : "无";
+        return [
+          "【标题】", item.title, "",
+          "【分类】", item.category, "",
+          "【简答】", item.shortAnswer, "",
+          "【步骤】", numbered(item.steps), "",
+          "【材料】", bulleted(item.materials), "",
+          "【注意事项】", bulleted(item.warnings), "",
+          "【相关链接】", bulleted(item.links), "",
+          "【来源】", item.sourcePages,
+        ].join("\n");
+      }
+
+      async function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        document.body.removeChild(area);
+      }
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove("show"), 2200);
+      }
+
+      function renderList(items) {
+        if (!items.length) {
+          const isFavorite = activeCategory === "收藏";
+          results.innerHTML = '<div class="empty"><div><h3>' + (isFavorite ? "你还没有收藏问题" : "没有找到相关内容") + '</h3><p>' + (isFavorite ? "可以把常用的签证、入境、学生卡、防诈骗问题收藏起来，方便出发前快速查看。" : "你可以尝试搜索：签证、CAS、肺结核、eVisa、学生卡、银行卡、被骗了、不能带什么。") + "</p></div></div>";
+          return;
+        }
+        results.innerHTML = items.map((item, index) => cardHtml(item, index)).join("");
+      }
+
+      function detailHtml(title, items, cls, ordered) {
+        if (!items || !items.length) return "";
+        const tag = ordered ? "ol" : "ul";
+        return '<section class="detail ' + cls + '"><p class="detail-title">' + title + '</p><' + tag + '>' + items.map((entry) => "<li>" + escapeHtml(entry) + "</li>").join("") + "</" + tag + "></section>";
+      }
+
+      function cardHtml(item, index) {
+        const isFavorite = favorites.includes(item.id);
+        const links = item.links && item.links.length
+          ? '<section class="detail"><p class="detail-title">相关链接</p><ul class="link-list">' + item.links.map((link) => '<li><a href="' + (/^https?:\/\//i.test(link) ? link : "https://" + link) + '" target="_blank" rel="noreferrer">' + escapeHtml(link) + '</a></li>').join("") + "</ul></section>"
+          : "";
+        return '<article class="card" data-id="' + item.id + '" style="animation-delay:' + Math.min(index * 35, 240) + 'ms">' +
+          '<div class="card-top"><div><div class="meta"><span class="cat-chip">' + escapeHtml(item.category) + '</span><span class="source">' + escapeHtml(item.sourcePages) + '</span></div><h3>' + highlight(item.title) + '</h3></div>' +
+          '<button class="fav ' + (isFavorite ? "active" : "") + '" data-action="favorite" aria-label="收藏">' + (isFavorite ? "★" : "☆") + '</button></div>' +
+          '<p class="short">' + highlight(item.shortAnswer) + '</p>' +
+          '<div class="details">' +
+          detailHtml("步骤", item.steps, "steps", true) +
+          detailHtml("材料", item.materials, "", false) +
+          detailHtml("注意事项", item.warnings, "warn", false) +
+          links +
+          '</div>' +
+          '<div class="actions"><button class="text-button" data-action="toggle">查看详情</button><button class="copy" data-action="copy">复制答案</button></div>' +
+          '</article>';
+      }
+
+      function renderFavorites() {
+        const favoriteItems = knowledge.filter((item) => favorites.includes(item.id));
+        favoriteCount.textContent = favoriteItems.length + " 条";
+        if (!favoriteItems.length) {
+          favoritePanel.innerHTML = '<div class="empty"><div><h3>你还没有收藏问题</h3><p>可以把常用的签证、入境、学生卡、防诈骗问题收藏起来，方便出发前快速查看。</p></div></div>';
+          return;
+        }
+        favoritePanel.innerHTML = '<div class="favorite-grid">' + favoriteItems.map((item) =>
+          '<button class="favorite-card" data-fav-select="' + item.id + '"><span class="cat-chip">' + escapeHtml(item.category) + '</span><h3>' + escapeHtml(item.title) + '</h3><p>' + escapeHtml(item.shortAnswer) + '</p></button>'
+        ).join("") + '</div>';
+      }
+
+      function renderCategories() {
+        document.getElementById("categories").innerHTML = categories.map((category) =>
+          '<button class="category ' + (category === activeCategory ? "active" : "") + '" data-category="' + category + '">' + category + '</button>'
+        ).join("");
+      }
+
+      function render() {
+        const items = searchItems();
+        resultKicker.textContent = query.trim() ? "Query: " + query.trim() : "Curated from PDF";
+        resultTitle.textContent = query.trim() ? "搜索结果" : (activeCategory === "全部" ? "推荐问题" : activeCategory);
+        resultCount.textContent = items.length + " 条";
+        favoriteSection.style.display = activeCategory === "收藏" ? "none" : "";
+        renderCategories();
+        renderList(items);
+        renderFavorites();
+      }
+
+      document.getElementById("tags").innerHTML = tags.map((tag) => '<button class="tag" data-tag="' + tag + '">' + tag + '</button>').join("");
+      document.getElementById("searchForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        query = input.value.trim();
+        render();
+      });
+      input.addEventListener("input", () => {
+        query = input.value;
+        render();
+      });
+      document.addEventListener("click", async (event) => {
+        const target = event.target.closest("button");
+        if (!target) return;
+        if (target.dataset.tag) {
+          query = target.dataset.tag;
+          activeCategory = "全部";
+          input.value = query;
+          render();
+          return;
+        }
+        if (target.dataset.category) {
+          activeCategory = target.dataset.category;
+          render();
+          return;
+        }
+        if (target.dataset.favSelect) {
+          const item = knowledge.find((entry) => entry.id === target.dataset.favSelect);
+          if (item) {
+            query = item.title;
+            input.value = query;
+            activeCategory = "全部";
+            window.scrollTo({ top: 130, behavior: "smooth" });
+            render();
+          }
+          return;
+        }
+        const card = target.closest(".card");
+        if (!card) return;
+        const item = knowledge.find((entry) => entry.id === card.dataset.id);
+        if (!item) return;
+        if (target.dataset.action === "favorite") {
+          if (favorites.includes(item.id)) {
+            favorites = favorites.filter((id) => id !== item.id);
+            showToast("已取消收藏");
+          } else {
+            favorites = [...favorites, item.id];
+            showToast("已加入收藏");
+          }
+          saveFavorites();
+          render();
+        }
+        if (target.dataset.action === "toggle") {
+          card.classList.toggle("open");
+          target.textContent = card.classList.contains("open") ? "收起详情" : "查看详情";
+        }
+        if (target.dataset.action === "copy") {
+          try {
+            await copyText(formatAnswer(item));
+            target.textContent = "已复制";
+            showToast("已复制到剪贴板");
+            setTimeout(() => target.textContent = "复制答案", 1400);
+          } catch {
+            showToast("复制失败，请检查浏览器权限");
+          }
+        }
+      });
+
+      render();
+    </script>
+  </body>
+</html>
