@@ -1,0 +1,10 @@
+{
+  "name": "UOS 行前问题速查",
+  "short_name": "UOS 速查",
+  "description": "桑德兰大学行前问题速查工具",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F5F8FC",
+  "theme_color": "#003D7C",
+  "lang": "zh-CN"
+}
